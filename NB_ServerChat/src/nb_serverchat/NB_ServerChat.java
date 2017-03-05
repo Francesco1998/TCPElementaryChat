@@ -26,27 +26,31 @@ public class NB_ServerChat {
 
     private static Scanner scanner;
     private ServerSocket server;
-    private ServerClient serverClient;
+    private ServerToClient serverClient;
+    
+    private int clientNumber;
 
     public NB_ServerChat(int port) {
         server = null;
         serverClient = null;
         porta = port;
+        clientNumber = 1;
         myMain();
     }
 
     public void myOpenPort(int port) throws IOException {
         //cerco di connettermi alla porta
-        System.out.println("connessione alla porta" + port + ", attendi ...");
+        System.out.println("connessione alla porta " + port + ", attendi ...");
         server = new ServerSocket(port);
         System.out.println("Server started: " + server); //stampo che il server è partito
     }
 
     public void myAccept() throws IOException {
-        System.out.println("Attendo un client ...");
+        System.out.println("Attendo client " + clientNumber + " ...");
         Socket clientSocket = server.accept();
-        System.out.println("Client accettato: " + clientSocket);
-        serverClient = new ServerClient();
+        System.out.println("Client " + clientNumber + " accettato: " + clientSocket);
+        clientNumber++;
+        serverClient = new ServerToClient();
         serverClient.myOpen(clientSocket);
         serverClient.start();
     }

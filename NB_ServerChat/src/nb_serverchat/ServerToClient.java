@@ -5,19 +5,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ServerClient extends Thread {
+public class ServerToClient extends Thread {
 
-    static boolean done = false;
-    static int porta = 3333;
-    String nome;
-
+    private boolean done;
+    private String nome;
     private Scanner scanner;
     private myChannel channelToClient;
 
-    public ServerClient() {
+    public ServerToClient() {
         scanner = new Scanner(System.in);
         channelToClient = new myChannel();
         nome = "";
+        done = false;
     }
 
     public void myOpen(Socket clientSocket) throws IOException {
@@ -28,14 +27,20 @@ public class ServerClient extends Thread {
         String clientLine = "";
         String userLine = null;
         nome = channelToClient.myReadData();
-        System.out.println(nome);
+        System.out.println("iniziata chat con " + nome);
         while (!done) {
             if (!clientLine.equalsIgnoreCase("bye")) {
+                System.out.print("scrivi qualcosa a " + nome + ": ");
                 userLine = scanner.nextLine();
                 channelToClient.myWriteData(userLine);
 
                 clientLine = channelToClient.myReadData();
-                System.out.println(nome + " ha scritto: " + clientLine + "\n");
+                if (clientLine != null) {
+                    System.out.println(nome + " ha scritto: " + clientLine + "\n");
+                } else {
+                    done = true;
+                    channelToClient.myClose();
+                }
             } else {
                 done = true;
                 channelToClient.myClose();

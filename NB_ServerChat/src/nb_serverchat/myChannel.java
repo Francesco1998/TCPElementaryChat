@@ -50,6 +50,7 @@ class myChannel {
                 dataOutputStream = null;
             }
         } catch (IOException ex) {
+            System.out.println("myClose :> " + ex);
             Logger.getLogger(myChannel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -62,7 +63,8 @@ class myChannel {
                 line = dataInputStream.readUTF();
             }
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("myReadData :> " + ex);
+            Logger.getLogger(myChannel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return line;
     }
@@ -75,6 +77,7 @@ class myChannel {
                 return true;
             }
         } catch (IOException ex) {
+            System.out.println("myWriteData :> " + ex);            
             Logger.getLogger(myChannel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
