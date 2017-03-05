@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AndroidChatClient</string>
+    <string name="send">Invia</string>
+    <string name="disconnect">Chiudi chat</string>
+    <string name="messaggio">Scrivi qualcosa</string>
+    <string name="chat">CHAT CLIENT</string>
+    <string name="user_name">Nome da usare nella chat</string>
+    <string name="destIP">IP da contattare</string>
+    <string name="connect">Connettiti</string>
+</resources>
